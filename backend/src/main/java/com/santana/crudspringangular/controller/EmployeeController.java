@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.santana.crudspringangular.exception.ResourceNotFoundException;
 import com.santana.crudspringangular.model.Employee;
 import com.santana.crudspringangular.service.EmployeeService;
 
@@ -42,19 +43,19 @@ public class EmployeeController {
 	}
 	
 	@GetMapping(value = "/employees/{id}")
-	public Employee findEmployeeById(@PathVariable Long id){
+	public Employee findEmployeeById(@PathVariable Long id) throws ResourceNotFoundException{
 		return employeeService.findById(id);
 	}
 	
 	@PutMapping(value = "/employees/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Employee updateEmployee(@PathVariable Long id, @Valid @RequestBody Employee employee) {
+	public Employee updateEmployee(@PathVariable Long id, @Valid @RequestBody Employee employee) throws ResourceNotFoundException {
 		return employeeService.updateEmployee(id, employee);
 	}
 	
 	@DeleteMapping("/employees/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteEmployee(@PathVariable Long id){
+	public void deleteEmployee(@PathVariable Long id) throws ResourceNotFoundException{
 		employeeService.deleteEmployee(id);
 	}
 	

@@ -32,13 +32,13 @@ public class EmployeeService {
 	}
 
 
-	public Employee findById(Long id) {
+	public Employee findById(Long id) throws ResourceNotFoundException {
 		return employeeRepository.findById(id).
 				orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 
-	public Employee updateEmployee(Long id, Employee employee) {
+	public Employee updateEmployee(Long id, Employee employee) throws ResourceNotFoundException {
 		Employee e = findById(id);
 		
 		e.setFirstName(employee.getFirstName());
@@ -48,7 +48,7 @@ public class EmployeeService {
 		return employeeRepository.save(e);
 	}
 	
-	public void deleteEmployee(Long id){		
+	public void deleteEmployee(Long id) throws ResourceNotFoundException{		
 		findById(id);
 		employeeRepository.deleteById(id);
 	}
